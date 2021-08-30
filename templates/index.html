@@ -1,0 +1,40 @@
+<html>
+<head>
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/style.css') }}">
+<title>German text classification</title>
+</head>
+<body>
+
+<div class='container'>
+
+{% if error %}
+<div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+
+{% if msg %}
+<div class="alert alert-success">{{ msg }}</div>
+{% endif %}
+
+<h1>German text classification</h1>
+<div class='image'>
+<img src="{{ url_for('static', filename = 'img/cc.png') }}">
+</div>
+<form method='post' action='/api' class="form-group">
+<textarea id='text' placeholder='Write your text here ...' name='text' class="form-control">{% if text%}{{ text }}{% endif %}
+</textarea>
+<input type='submit' value='test your text' class="btn btn-primary">
+<button id='clearText') class="btn btn-danger">Clear text</button>
+</form>
+</div>
+
+<script>
+    clearBtn = document.getElementById("clearText")
+    text = document.getElementById("text")
+    clearBtn.onclick = function(e){
+        e.preventDefault()
+        text.value = "";
+    }
+</script>
+</body>
+</html>
