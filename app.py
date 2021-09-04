@@ -6,9 +6,6 @@ from flask import url_for
 from preprocess_data import *
 import pickle
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.svm import LinearSVC
-from sklearn.model_selection import train_test_split
-
 app = Flask(__name__)
 
 
@@ -27,17 +24,11 @@ def api():
         # mapper = {0: 'Etat', 1: 'Inland', 2: 'International', 3: 'Kultur', 4: 'Panorama', 5: 'Sport', 6: 'Web',
         #           7: 'Wirtschaft', 8: 'Wissenschaft'}
         new_text = preprocessing(new_text)
-        ## vocabulary fitting###################################"
-        cd = pd.read_csv('df1.csv')
-        X_train, X_test, y_train, y_test = train_test_split(cd['text'], cd['class'], random_state=0)
-        count_vect = CountVectorizer()
-        X_train_counts = count_vect.fit_transform(X_train)
-        tfidf_transformer = TfidfTransformer()
-        X_train_tfidf = tfidf_transformer.fit_transform(X_train_counts)
-        clf = LinearSVC().fit(X_train_tfidf, y_train)
+        ## load vocabulary###################################"
+        loaded_vec = CountVectorizer(decode_error="replace", vocabulary=pickle.load(open("vocab//feature.pkl", "rb")))
         ####
         ################ Predict using our loaded model ##############
-        mapped_pred = SVC.predict(count_vect.transform([new_text]))
+        mapped_pred = SVC.predict(loaded_vec.transform([new_text]))
         if (mapped_pred):
             response = response + str(mapped_pred[0])
             msg = "This text is classified as {}".format(response)

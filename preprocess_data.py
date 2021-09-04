@@ -5,9 +5,6 @@ from collections import Counter
 from nltk.stem.snowball import GermanStemmer
 import re
 import spacy
-from sklearn import preprocessing
-from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
-from sklearn.feature_extraction.text import TfidfTransformer
 
 
 
@@ -51,22 +48,3 @@ def preprocessing(text):
     text = re.sub("\d+"," ",text)
     return text
 
-# def vectorize(corpus):
-#     corpus = [corpus]
-#     tfidf = TfidfVectorizer(min_df=1, max_df=1, ngram_range=(1, 2), max_features=5000, norm='l2')
-#     try:
-#         features = tfidf.fit_transform(corpus)
-#         vect = pd.DataFrame(features.todense(), columns=tfidf.get_feature_names())
-#     except ValueError:
-#         return render_template("index.html", msg="your message cannot be treated")
-#
-#     return vect
-#
-# def padd_sequence(vect):
-#     """ vect : output of vectorize
-#       type : dataframe
-#     """
-#     if len(vect) < 5000:
-#         for i in range(0, (5000 - vect.shape[1])):
-#             vect['oov' + str(i)] = 0
-#     return vect
