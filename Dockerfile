@@ -1,13 +1,10 @@
 FROM python:3.8-slim-buster
 
-COPY ./requirements.txt /app/requirements.txt
-
 WORKDIR /app
 
+COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
-
-COPY . /app
-
+RUN [ "python", "-c", "import nltk; nltk.download('stopwords')" ]
+COPY . .
 EXPOSE 5000
-
-CMD [ "flask", "run" ]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
