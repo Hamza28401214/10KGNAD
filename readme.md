@@ -13,9 +13,9 @@ Flask run
 http://127.0.0.1:5000/
 # Run docker image
 ### 1 . first build the image
-### 2 . docker build --tag <namem:tag> 
+### docker build --tag <name:tag>
 for example : docker build --tag flask:1.0  
-### 3 . run the cotnainer with this command: docker run -d <name_of_thecontainer:tag>
+### 2 . run the cotnainer with this command: docker run -d <name_of_thecontainer:tag>
 for example : docker run -d flask:1.0
 ## Perspectives
 1. Train deep learning models and enhance model performance
